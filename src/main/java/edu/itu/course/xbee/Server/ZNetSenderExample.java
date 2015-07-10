@@ -17,23 +17,10 @@
  * along with XBee-API.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.rapplogic.xbee.examples;
+package edu.itu.course.xbee.Server;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
-
-import com.rapplogic.xbee.api.XBee;
-import com.rapplogic.xbee.api.XBeeAddress16;
-import com.rapplogic.xbee.api.XBeeAddress64;
-import com.rapplogic.xbee.api.XBeeException;
-import com.rapplogic.xbee.api.XBeeRequest;
-import com.rapplogic.xbee.api.XBeeTimeoutException;
-import com.rapplogic.xbee.api.wpan.RxResponse16;
-import com.rapplogic.xbee.api.wpan.TxRequest16;
-import com.rapplogic.xbee.api.wpan.TxStatusResponse;
-import com.rapplogic.xbee.api.zigbee.ZNetTxRequest;
-import com.rapplogic.xbee.api.zigbee.ZNetTxStatusResponse;
-import com.rapplogic.xbee.util.ByteUtils;
 
 /** 
  * To run this example you need to have at least two ZNet XBees powered up and configured to the same PAN ID (ATID) in API mode (2).
@@ -113,7 +100,7 @@ import com.rapplogic.xbee.util.ByteUtils;
 public class ZNetSenderExample {
 
 	private final static Logger log = Logger.getLogger(ZNetSenderExample.class);
-	
+	/*
 	private ZNetSenderExample() throws XBeeException {
 		
 		XBee xbee = new XBee();
@@ -126,7 +113,7 @@ public class ZNetSenderExample {
 		
 		// replace with end device's 64-bit address (SH + SL)
 		// router (firmware 23A7)
-//		XBeeAddress64 addr64 = new XBeeAddress64(0, 0x13, 0xa2, 0, 0x40, 0x8b, 0x98, 0xff);
+//		XBegetResponseeAddress64 addr64 = new XBeeAddress64(0, 0x13, 0xa2, 0, 0x40, 0x8b, 0x98, 0xff);
 		XBeeAddress16 address16 = new XBeeAddress16(0xFF,0xFF);
 		 
 		// create an array of arbitrary data to send
@@ -183,10 +170,43 @@ public class ZNetSenderExample {
 			} catch (InterruptedException e) {
 			}
 		}
-	}
-	
-	public static void main(String[] args) throws XBeeException, InterruptedException  {
-		PropertyConfigurator.configure("log4j.properties");
-		new ZNetSenderExample();
-	}
+	}*/
+	/*
+		public static void main(String[] args) throws Exception {
+			// init log4j
+			PropertyConfigurator.configure("log4j.properties");
+			
+//			long patience = 1000 * 60 * 60;
+			threadMessage("Starting XbeeCommunication thread");
+//		    long startTime = System.currentTimeMillis();
+			Thread t = new Thread(new XbeeCommunication());
+	        t.start();
+	        // loop until MessageLoop
+	        // thread exits
+	        while (t.isAlive()) {
+	        	threadMessage("Still waiting...");
+	            // Wait maximum of 1 second
+	            // for MessageLoop thread
+	            // to finish.
+	            t.join(1000);
+	            
+	            
+	            if (((System.currentTimeMillis() - startTime) > patience)
+	                  && t.isAlive()) {
+	            	threadMessage("Tired of waiting!");
+	                t.interrupt();
+	                // Shouldn't be long now
+	                // -- wait indefinitely
+	                t.join();
+	            }
+	        }
+		}
+		*/
+	static void threadMessage(String message) {
+		        String threadName =
+		            Thread.currentThread().getName();
+		        log.info(String.format("%s: %s%n",
+		                          threadName,
+		                          message));
+		    }
 }
